@@ -55,6 +55,7 @@
   .card dd { margin:0; }
   @media (max-width: 520px) { .card dl { grid-template-columns: 1fr; } .card dt { padding-top:6px; } }
   .stack { font: .8rem ui-monospace, Menlo, monospace; color:var(--muted); margin-top:12px; }
+  .shot { display:block; width:100%; height:auto; margin-top:14px; border-radius:8px; border:1px solid var(--line); }
   .tag { font-size:.75rem; padding:1px 9px; border-radius:999px; background:var(--chip); color:var(--muted); white-space:nowrap; }
   .tag.live { color:var(--accent); }
 
@@ -108,8 +109,8 @@
       <span lang="zh">我为真实的问题做小工具，也习惯把问题追到根上。</span>
     </h1>
     <p>
-      <span lang="en">I'm Nora, a software &amp; cloud engineer in Christchurch, New Zealand. I work across the stack — from networks and cloud infrastructure to web apps — and I came into tech through a less-than-straight path.</span>
-      <span lang="zh">我是 Nora，在新西兰基督城做软件和云。我的工作横跨整条技术栈——从网络、云基础设施到 Web 应用。我走进技术这一行的路，不算笔直。</span>
+      <span lang="en">I'm Nora, a software &amp; cloud engineer in Christchurch, New Zealand. I work across the stack — from networks and cloud infrastructure to web apps — Before tech, I was a travel and digital-media editor in Beijing and Shanghai — so I still care about explaining things clearly.</span>
+      <span lang="zh">我是 Nora，在新西兰基督城做软件和云。我的工作横跨整条技术栈——从网络、云基础设施到 Web 应用。转行做技术之前，我在北京和上海做旅行与新媒体编辑——所以我至今很在意把事情讲清楚。</span>
     </p>
     <p class="meta">
       <span lang="en">AWS Certified Solutions Architect – Associate · Ara Top Student 2024</span>
@@ -173,6 +174,8 @@
         <dd><span lang="en">If a lookup fails, the report says "could not be checked" — never "no risk". Hazard definitions come from the official layers, not from a model's memory. In a house-buying decision, a confident wrong answer does real harm.</span>
             <span lang="zh">查询失败时报告写“无法核查”，而不是“无风险”。灾害术语的释义直接取自官方图层，不让模型凭记忆解释。在买房这种决定里，一个自信的错误答案会造成实实在在的伤害。</span></dd>
       </dl>
+      <img class="shot" src="images/smartbuy-hazards.jpg" width="760" height="470" loading="lazy"
+           alt="SmartBuy report: land hazards for one section, with the council's own explanation and guidance">
       <div class="stack">Next.js · TypeScript · ArcGIS REST · MySQL · Docker · Claude API</div>
     </div>
 
@@ -199,6 +202,7 @@
         <dd><span lang="en">Talked with the client, built and deployed the site, and connected a headless CMS so staff edit content without a developer. Wrote them an admin guide too.</span>
             <span lang="zh">和客户沟通需求，开发并上线，接入 headless CMS，让工作人员不靠开发者就能改内容。还给他们写了一份管理员指南。</span></dd>
       </dl>
+      <img class="shot" src="images/bdirugby.jpg" width="1000" height="625" loading="lazy" alt="BDI Rugby Club homepage">
       <div class="stack">Next.js · TypeScript · Sanity CMS · Tailwind · Vercel</div>
     </div>
 
@@ -268,10 +272,14 @@
         <h3><span lang="en">Retail · Swarovski, Freedom Furniture</span><span lang="zh">零售 · Swarovski、Freedom Furniture</span></h3>
         <span lang="en">Where I learned to listen to what people actually need — still the most useful skill in support and product work.</span>
         <span lang="zh">在这里学会倾听别人真正需要什么——这至今是我在技术支持和产品工作中最有用的能力。</span></li>
+      <li><div class="when">2017 – 2021</div>
+        <h3><span lang="en">Editor · travel &amp; digital media</span><span lang="zh">编辑 · 旅行与新媒体</span></h3>
+        <span lang="en">New media editor at Condé Nast Traveler (Beijing): about 100 articles, 20+ brand collaborations with partners such as Tourism Canada and Marriott, and 50k+ new followers. Before that, travel writing at ifeng.com, where four of my pieces reached the homepage; after it, content editor at an education company in Shanghai.</span>
+        <span lang="zh">在《悦游 Condé Nast Traveler》（北京）做新媒体编辑：写了近百篇文章，与加拿大旅游局、万豪等品牌合作 20 多篇，公众号涨粉 5 万以上。更早在凤凰网旅游频道写旅行稿，有 4 篇上了凤凰网首页推荐；之后在上海一家教育公司做内容编辑。</span></li>
       <li><div class="when">2019</div>
         <h3><span lang="en">Bachelor of Digital Information · Tianjin Foreign Studies University</span><span lang="zh">数字传媒学士 · 天津外国语大学</span></h3>
-        <span lang="en">Then moved to New Zealand.</span>
-        <span lang="zh">之后来到新西兰。</span></li>
+        <span lang="en">Led the campus press corps and started its portrait-photography column.</span>
+        <span lang="zh">在校时担任学院记者团团长，创办了校园人像摄影专栏。</span></li>
     </ol>
   </section>
 
