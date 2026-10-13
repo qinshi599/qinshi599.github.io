@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nora Shi</title>
+<meta name="description" content="Nora Shi — software & cloud engineer in Christchurch, New Zealand. Projects, learning notes, and how I work.">
+<style>
+  :root { --bg:#fbfaf7; --fg:#1f1d1a; --muted:#6f6a62; --accent:#b4532a; --line:#e6e1d8; --card:#ffffff; --chip:#f1ece3; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#141311; --fg:#ebe7e0; --muted:#a39d93; --accent:#e58a5c; --line:#2c2a26; --card:#1b1a17; --chip:#26241f; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:16.5px/1.75 ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+
+  /* language: show only the active one */
+  body[data-lang="en"] [lang="zh"], body[data-lang="zh"] [lang="en"] { display:none; }
+
+  header { position: sticky; top:0; z-index:10; background:color-mix(in srgb, var(--bg) 88%, transparent);
+           backdrop-filter: blur(8px); border-bottom:1px solid var(--line); }
+  .bar { max-width: 760px; margin:0 auto; padding: 10px 16px; display:flex; gap:16px; align-items:center; }
+  .bar .name { font-weight:700; margin-right:auto; color:var(--fg); }
+  .bar nav { display:flex; gap:14px; font-size:.9rem; overflow-x:auto; }
+  .bar nav a { color:var(--muted); white-space:nowrap; }
+  #lang { border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:999px;
+          padding:2px 12px; font:inherit; font-size:.85rem; cursor:pointer; }
+  @media (max-width: 600px) { .bar nav { display:none; } }
+
+  main { max-width: 760px; margin: 0 auto; padding: 0 16px 80px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .hero { padding: 72px 0 24px; }
+  .hero h1 { font-size: clamp(2rem, 6vw, 2.8rem); line-height:1.2; margin:0 0 12px; letter-spacing:-.01em; }
+  .hero p { font-size:1.1rem; margin: 0 0 8px; max-width: 36em; }
+  .hero .meta { color:var(--muted); font-size:.95rem; }
+
+  section { padding-top: 56px; scroll-margin-top: 56px; }
+  h2 { display:flex; gap:12px; align-items:baseline; font-size:1.35rem; margin:0 0 20px;
+       padding-top:20px; border-top:1px solid var(--line); }
+  h2 .no { font: 600 .8rem ui-monospace, Menlo, monospace; color:var(--accent); }
+  h3 { font-size:1.05rem; margin:0 0 4px; }
+  .muted { color:var(--muted); }
+  .small { font-size:.88rem; }
+
+  .facets { display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .facets div { border-left:3px solid var(--accent); padding-left:14px; }
+
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .card .top { display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; justify-content:space-between; }
+  .card dl { margin: 12px 0 0; display:grid; grid-template-columns: 5.5em 1fr; gap: 6px 12px; }
+  .card dt { color:var(--muted); font-size:.85rem; padding-top:3px; }
+  .card dd { margin:0; }
+  @media (max-width: 520px) { .card dl { grid-template-columns: 1fr; } .card dt { padding-top:6px; } }
+  .stack { font: .8rem ui-monospace, Menlo, monospace; color:var(--muted); margin-top:12px; }
+  .tag { font-size:.75rem; padding:1px 9px; border-radius:999px; background:var(--chip); color:var(--muted); white-space:nowrap; }
+  .tag.live { color:var(--accent); }
+
+  .now li { margin-bottom: 8px; }
+  .now b { display:inline-block; min-width: 6.5em; }
+
+  ol.timeline { list-style:none; margin:0; padding:0; border-left:2px solid var(--line); }
+  ol.timeline li { position:relative; padding: 0 0 22px 20px; }
+  ol.timeline li::before { content:""; position:absolute; left:-7px; top:9px; width:12px; height:12px;
+                           border-radius:50%; background:var(--bg); border:2px solid var(--accent); }
+  ol.timeline .when { font: .8rem ui-monospace, Menlo, monospace; color:var(--muted); }
+
+  .tracks { display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .tracks .card { margin:0; }
+  .tracks p { margin: 6px 0 0; font-size:.92rem; }
+
+  .principles { counter-reset: p; list-style:none; padding:0; margin:0; }
+  .principles li { counter-increment: p; padding-left: 2.4em; position:relative; margin-bottom:18px; }
+  .principles li::before { content: counter(p, decimal-leading-zero); position:absolute; left:0; top:2px;
+                           font: 600 .85rem ui-monospace, Menlo, monospace; color:var(--accent); }
+  .principles b { display:block; }
+
+  ul.plain { list-style:none; padding:0; margin:0; }
+  ul.plain li { padding: 10px 0; border-bottom:1px dashed var(--line); display:flex; gap:12px; justify-content:space-between; }
+
+  footer { max-width:760px; margin:0 auto; padding: 24px 16px 48px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); }
+</style>
+</head>
+<body data-lang="en">
+
+<header>
+  <div class="bar">
+    <a class="name" href="#top">Nora Shi</a>
+    <nav>
+      <a href="#now"><span lang="en">Now</span><span lang="zh">此刻</span></a>
+      <a href="#work"><span lang="en">Work</span><span lang="zh">作品</span></a>
+      <a href="#path"><span lang="en">Path</span><span lang="zh">经历</span></a>
+      <a href="#learning"><span lang="en">Learning</span><span lang="zh">学习地图</span></a>
+      <a href="#principles"><span lang="en">How I work</span><span lang="zh">做事方式</span></a>
+      <a href="#contact"><span lang="en">Contact</span><span lang="zh">联系</span></a>
+    </nav>
+    <button id="lang" type="button" aria-label="Switch language / 切换语言">中</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <h1>
+      <span lang="en">I build small tools for real problems — and trace things down to the root cause.</span>
+      <span lang="zh">我为真实的问题做小工具，也习惯把问题追到根上。</span>
+    </h1>
+    <p>
+      <span lang="en">I'm Nora, a software &amp; cloud engineer in Christchurch, New Zealand. I work across the stack — from networks and cloud infrastructure to web apps — and I came into tech through a less-than-straight path.</span>
+      <span lang="zh">我是 Nora，在新西兰基督城做软件和云。我的工作横跨整条技术栈——从网络、云基础设施到 Web 应用。我走进技术这一行的路，不算笔直。</span>
+    </p>
+    <p class="meta">
+      <span lang="en">AWS Certified Solutions Architect – Associate · Ara Top Student 2024</span>
+      <span lang="zh">AWS 解决方案架构师（助理级）认证 · Ara 2024 年度优秀学生</span>
+    </p>
+  </div>
+
+  <!-- 01 -->
+  <section id="facets">
+    <h2><span class="no">01</span><span lang="en">Three sides of me</span><span lang="zh">三个切面</span></h2>
+    <div class="facets">
+      <div>
+        <h3><span lang="en">Start from a real need</span><span lang="zh">从真实需求出发</span></h3>
+        <span lang="en">Most of my projects began as my own problem: finding a job, buying a house, typing the same sentences at the service desk.</span>
+        <span lang="zh">我的项目大多始于自己的麻烦：找工作、买房、在 Service Desk 一遍遍打同样的话。</span>
+      </div>
+      <div>
+        <h3><span lang="en">Follow it down the layers</span><span lang="zh">一层层往下追</span></h3>
+        <span lang="en">Network, identity, cloud, database, UI — I'm comfortable crossing layers until I find where it actually broke.</span>
+        <span lang="zh">网络、身份、云、数据库、界面——我习惯跨层排查，直到找到真正出问题的地方。</span>
+      </div>
+      <div>
+        <h3><span lang="en">Learn wide, then dig</span><span lang="zh">先学宽，再挖深</span></h3>
+        <span lang="en">CCNA basics, DevOps, ethical hacking, AWS. Some are already solid, some are holes I'm still digging — see the <a href="#learning">learning map</a>.</span>
+        <span lang="zh">CCNA 基础、DevOps、道德黑客、AWS。有的已经扎实，有的是我正在挖的坑——见<a href="#learning">学习地图</a>。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="now">
+    <h2><span class="no">02</span><span lang="en">Now</span><span lang="zh">此刻</span></h2>
+    <ul class="now plain">
+      <li><span><b lang="en">Working</b><b lang="zh">工作</b>
+        <span lang="en">Service Desk Analyst at Stantec (global, on-call incident response) · Software Engineer Intern at MediaJira</span>
+        <span lang="zh">Stantec 服务台分析师（全球环境，参与 on-call 事故响应）· MediaJira 软件工程实习生</span></span></li>
+      <li><span><b lang="en">Building</b><b lang="zh">在做</b>
+        <span lang="en">SmartBuy — a due-diligence tool for buying a house in Christchurch</span>
+        <span lang="zh">SmartBuy——在基督城买房的尽调工具</span></span></li>
+      <li><span><b lang="en">Learning</b><b lang="zh">在学</b>
+        <span lang="en">Kubernetes (just finished a first project) · .NET backend, heading toward a payment-processing API</span>
+        <span lang="zh">Kubernetes（刚做完第一个项目）· .NET 后端，目标是做一个支付处理 API</span></span></li>
+    </ul>
+    <p class="muted small"><span lang="en">Updated 13 Oct 2026</span><span lang="zh">更新于 2026-10-13</span></p>
+  </section>
+
+  <!-- 03 -->
+  <section id="work">
+    <h2><span class="no">03</span><span lang="en">Things I've built</span><span lang="zh">做过的事</span></h2>
+
+    <div class="card">
+      <div class="top"><h3>SmartBuy NZ · CHCH House Monitor</h3><span class="tag live"><span lang="en">In progress</span><span lang="zh">进行中</span></span></div>
+      <dl>
+        <dt><span lang="en">Problem</span><span lang="zh">起点</span></dt>
+        <dd><span lang="en">Checking one Christchurch house means opening six government websites — valuation, liquefaction, flooding, rent, schools — and still not knowing what the jargon means.</span>
+            <span lang="zh">查一套基督城的房子，要开六个政府网站——估值、液化、洪水、租金、学校——看完还不一定懂那些术语。</span></dd>
+        <dt><span lang="en">What I did</span><span lang="zh">做法</span></dt>
+        <dd><span lang="en">Type an address, get one report built from council open data queried live at that parcel's coordinates, plus area rent, price trends and schools. A companion pipeline scrapes daily listings, de-duplicates the same house across sites, tracks price history and queues due-diligence reports.</span>
+            <span lang="zh">输入地址，按地块坐标实时查询市议会开放数据，生成一份报告，并附上周边租金、房价走势和学校。配套的流水线每天抓取在售房源，跨网站识别同一套房，记录价格历史，并在后台排队生成尽调报告。</span></dd>
+        <dt><span lang="en">Why it matters</span><span lang="zh">为什么重要</span></dt>
+        <dd><span lang="en">If a lookup fails, the report says "could not be checked" — never "no risk". Hazard definitions come from the official layers, not from a model's memory. In a house-buying decision, a confident wrong answer does real harm.</span>
+            <span lang="zh">查询失败时报告写“无法核查”，而不是“无风险”。灾害术语的释义直接取自官方图层，不让模型凭记忆解释。在买房这种决定里，一个自信的错误答案会造成实实在在的伤害。</span></dd>
+      </dl>
+      <div class="stack">Next.js · TypeScript · ArcGIS REST · MySQL · Docker · Claude API</div>
+    </div>
+
+    <div class="card">
+      <div class="top"><h3><span lang="en">Customer-service portal · MediaJira</span><span lang="zh">客服工单系统 · MediaJira</span></h3><span class="tag"><span lang="en">Work · 2026</span><span lang="zh">工作 · 2026</span></span></div>
+      <dl>
+        <dt><span lang="en">Problem</span><span lang="zh">起点</span></dt>
+        <dd><span lang="en">The support team had no tool of their own for handling customer tickets.</span>
+            <span lang="zh">客服团队没有自己的工单处理工具。</span></dd>
+        <dt><span lang="en">What I did</span><span lang="zh">做法</span></dt>
+        <dd><span lang="en">Built it end-to-end, from the PostgreSQL model and Django REST APIs to the Next.js screens: ticket status machine, SLA countdowns, customer labels and internal notes. Added end-to-end tests and CI health checks, and traced a production login outage to migrations never applied on the server.</span>
+            <span lang="zh">端到端搭建：从 PostgreSQL 数据模型、Django REST API 到 Next.js 页面——工单状态机、SLA 倒计时、客户标签与内部备注。补上端到端测试和 CI 健康检查；还排查过一次线上登录故障，根因是服务器上的数据库迁移从未执行。</span></dd>
+      </dl>
+      <div class="stack">Python · Django REST · PostgreSQL · Next.js · TypeScript · Playwright · Docker · GCP</div>
+    </div>
+
+    <div class="card">
+      <div class="top"><h3><span lang="en">BDI Rugby Club website</span><span lang="zh">BDI 橄榄球俱乐部网站</span></h3><a href="https://bdirugby.co.nz" class="small">bdirugby.co.nz ↗</a></div>
+      <dl>
+        <dt><span lang="en">Problem</span><span lang="zh">起点</span></dt>
+        <dd><span lang="en">A volunteer-run club needed a site its non-technical committee could keep up to date.</span>
+            <span lang="zh">一个由志愿者运营的俱乐部，需要一个不懂技术的委员也能自己更新的网站。</span></dd>
+        <dt><span lang="en">What I did</span><span lang="zh">做法</span></dt>
+        <dd><span lang="en">Talked with the client, built and deployed the site, and connected a headless CMS so staff edit content without a developer. Wrote them an admin guide too.</span>
+            <span lang="zh">和客户沟通需求，开发并上线，接入 headless CMS，让工作人员不靠开发者就能改内容。还给他们写了一份管理员指南。</span></dd>
+      </dl>
+      <div class="stack">Next.js · TypeScript · Sanity CMS · Tailwind · Vercel</div>
+    </div>
+
+    <div class="card">
+      <div class="top"><h3>Koru Interview Hub</h3><a href="https://github.com/qinshi599/Koru-Interview-Hub" class="small">GitHub ↗</a></div>
+      <dl>
+        <dt><span lang="en">Problem</span><span lang="zh">起点</span></dt>
+        <dd><span lang="en">Interview practice material rarely reflects the New Zealand and Australian tech job market.</span>
+            <span lang="zh">市面上的面试练习材料，很少贴合新西兰和澳洲的技术求职市场。</span></dd>
+        <dt><span lang="en">What I did</span><span lang="zh">做法</span></dt>
+        <dd><span lang="en">An open-source platform where people share questions from real interviews, sort them by category and difficulty, and practise answering with their past attempts saved. AI feedback on answers is next.</span>
+            <span lang="zh">一个开源平台：大家分享真实面试里遇到的题，按类别和难度整理，在线练习作答并保留历次记录。下一步是加入 AI 答案反馈。</span></dd>
+      </dl>
+      <div class="stack">C# · ASP.NET Core MVC · Entity Framework Core · SQLite · Identity</div>
+    </div>
+
+    <div class="card">
+      <div class="top"><h3><span lang="en">Job-search toolkit</span><span lang="zh">求职工具箱</span></h3><span class="tag"><span lang="en">Personal</span><span lang="zh">个人项目</span></span></div>
+      <dl>
+        <dt><span lang="en">Problem</span><span lang="zh">起点</span></dt>
+        <dd><span lang="en">Job hunting in NZ is a pile of repetitive work: scrolling listings, matching them to your CV, preparing for interviews.</span>
+            <span lang="zh">在新西兰找工作，是一大堆重复劳动：刷职位、对照简历、准备面试。</span></dd>
+        <dt><span lang="en">What I did</span><span lang="zh">做法</span></dt>
+        <dd><span lang="en">Seek Hunter scrapes listings with Playwright, scores each job description against my CV with the Claude API, and emails me a ranked shortlist. A separate interview bank transcribes my practice recordings locally — the audio never leaves my machine.</span>
+            <span lang="zh">Seek Hunter 用 Playwright 抓取职位，用 Claude API 把每份职位描述与我的简历对比打分，再把排序后的清单发到我邮箱。另一个面试题库在本地转录我的练习录音——音频不离开我的电脑。</span></dd>
+      </dl>
+      <div class="stack">Python · Playwright · SQLite · Claude API · Whisper</div>
+    </div>
+
+    <div class="card">
+      <div class="top"><h3><span lang="en">Quick Phrases for Service Desk</span><span lang="zh">Service Desk 快捷短语插件</span></h3><span class="tag"><span lang="en">Small tool</span><span lang="zh">小工具</span></span></div>
+      <p style="margin:12px 0 0"><span lang="en">A Chrome extension that inserts frequently used support-chat sentences from the right-click menu. Built after typing the same lines dozens of times a day.</span>
+         <span lang="zh">一个 Chrome 插件：右键就能插入常用的客服对话句子。起因是每天要把同样的话打几十遍。</span></p>
+      <div class="stack">JavaScript · Chrome Extensions API</div>
+    </div>
+
+    <div class="card">
+      <div class="top"><h3><span lang="en">AWS hybrid-cloud failover</span><span lang="zh">AWS 混合云故障切换</span></h3><span class="tag"><span lang="en">Capstone · 2025</span><span lang="zh">毕业项目 · 2025</span></span></div>
+      <p style="margin:12px 0 0"><span lang="en">Kept a database available during an RDS outage: site-to-site VPN between AWS and on-prem (pfSense), with credentials switched automatically through Secrets Manager.</span>
+         <span lang="zh">在 RDS 宕机时保持数据库可用：AWS 与本地机房之间建立站点到站点 VPN（pfSense），数据库凭证通过 Secrets Manager 自动切换。</span></p>
+      <div class="stack">AWS EC2 · RDS · VPC · Route 53 · Secrets Manager · pfSense</div>
+    </div>
+
+    <p class="muted small">
+      <span lang="en">Earlier, from study: <a href="https://github.com/qinshi599/ChessMazeGame">Chess Maze Game</a> (C#, WinForms, MSTest) · Triathlon Workout App (React, Jest) · a Spring Boot banking API.</span>
+      <span lang="zh">更早的课程作品：<a href="https://github.com/qinshi599/ChessMazeGame">国际象棋迷宫游戏</a>（C#、WinForms、MSTest）· 铁人三项训练应用（React、Jest）· 一个 Spring Boot 银行账户 API。</span>
+    </p>
+  </section>
+
+  <!-- 04 -->
+  <section id="path">
+    <h2><span class="no">04</span><span lang="en">The path</span><span lang="zh">经历</span></h2>
+    <ol class="timeline">
+      <li><div class="when">2026 —</div>
+        <h3><span lang="en">Software Engineer Intern · MediaJira</span><span lang="zh">软件工程实习生 · MediaJira</span></h3>
+        <span lang="en">Full-stack product work in a production codebase with Kafka, WebSockets and Celery.</span>
+        <span lang="zh">在生产代码库中做全栈功能开发，接触 Kafka、WebSockets、Celery。</span></li>
+      <li><div class="when">2025 —</div>
+        <h3><span lang="en">Service Desk Analyst · Stantec</span><span lang="zh">服务台分析师 · Stantec</span></h3>
+        <span lang="en">Identity, endpoints, VPN, DNS in a global enterprise. I find the root cause with Splunk and hand it on with the evidence, so the next team doesn't have to ask again.</span>
+        <span lang="zh">在全球化企业环境中处理身份、终端、VPN、DNS 问题。我用 Splunk 找到根因，连同证据一起交给下一级团队，让他们不必再回头追问。</span></li>
+      <li><div class="when">2024 – 2025</div>
+        <h3><span lang="en">Graduate Diploma in Software Development · Ara</span><span lang="zh">软件开发研究生文凭 · Ara 坎特伯雷理工学院</span></h3>
+        <span lang="en">Top Student 2024. Plus a cloud engineering internship at Tradeshift: Terraform drift, observability dashboards, GitHub Actions.</span>
+        <span lang="zh">2024 年度优秀学生。期间在 Tradeshift 做云工程实习：处理 Terraform 配置漂移、维护监控面板、GitHub Actions。</span></li>
+      <li><div class="when">2022 – 2025</div>
+        <h3><span lang="en">Retail · Swarovski, Freedom Furniture</span><span lang="zh">零售 · Swarovski、Freedom Furniture</span></h3>
+        <span lang="en">Where I learned to listen to what people actually need — still the most useful skill in support and product work.</span>
+        <span lang="zh">在这里学会倾听别人真正需要什么——这至今是我在技术支持和产品工作中最有用的能力。</span></li>
+      <li><div class="when">2019</div>
+        <h3><span lang="en">Bachelor of Digital Information · Tianjin Foreign Studies University</span><span lang="zh">数字传媒学士 · 天津外国语大学</span></h3>
+        <span lang="en">Then moved to New Zealand.</span>
+        <span lang="zh">之后来到新西兰。</span></li>
+    </ol>
+  </section>
+
+  <!-- 05 -->
+  <section id="learning">
+    <h2><span class="no">05</span><span lang="en">Learning map</span><span lang="zh">学习地图</span></h2>
+    <p class="muted"><span lang="en">What a CV can't show: the breadth behind it, and where I'm digging next.</span>
+       <span lang="zh">简历装不下的部分：背后的广度，以及我接下来要往哪里挖。</span></p>
+    <div class="tracks">
+      <div class="card">
+        <div class="top"><h3><span lang="en">Cloud</span><span lang="zh">云</span></h3><span class="tag live"><span lang="en">Solid</span><span lang="zh">扎实</span></span></div>
+        <p><span lang="en">AWS Solutions Architect Associate (2026), Terraform, hybrid failover. Now adding Kubernetes.</span>
+           <span lang="zh">AWS 解决方案架构师助理级认证（2026）、Terraform、混合云故障切换。正在补 Kubernetes。</span></p>
+      </div>
+      <div class="card">
+        <div class="top"><h3><span lang="en">Networking</span><span lang="zh">网络</span></h3><span class="tag live"><span lang="en">Solid</span><span lang="zh">扎实</span></span></div>
+        <p><span lang="en">CCNA fundamentals: TCP/IP, DNS, VLANs, Packet Tracer labs. Used daily at the service desk.</span>
+           <span lang="zh">CCNA 基础：TCP/IP、DNS、VLAN、Packet Tracer 实验。在服务台每天都用得上。</span></p>
+      </div>
+      <div class="card">
+        <div class="top"><h3>DevOps</h3><span class="tag"><span lang="en">Practising</span><span lang="zh">实践中</span></span></div>
+        <p><span lang="en">CI/CD with Jenkins and GitHub Actions, Docker, plus network automation: REST/RESTCONF, NETCONF, YANG, SDN controllers.</span>
+           <span lang="zh">Jenkins 与 GitHub Actions 的 CI/CD、Docker，以及网络自动化：REST/RESTCONF、NETCONF、YANG、SDN 控制器。</span></p>
+      </div>
+      <div class="card">
+        <div class="top"><h3><span lang="en">Security</span><span lang="zh">安全</span></h3><span class="tag"><span lang="en">Digging in</span><span lang="zh">正在挖</span></span></div>
+        <p><span lang="en">Ethical hacking coursework with nine modules of hands-on labs. The next thing I want to go deep on.</span>
+           <span lang="zh">道德黑客课程，九个模块的动手实验。这是我下一个想深挖的方向。</span></p>
+      </div>
+      <div class="card">
+        <div class="top"><h3><span lang="en">Backend</span><span lang="zh">后端</span></h3><span class="tag"><span lang="en">Practising</span><span lang="zh">实践中</span></span></div>
+        <p><span lang="en">Django REST in production, Spring Boot, and now .NET — building toward a payment-processing API.</span>
+           <span lang="zh">生产环境中的 Django REST、Spring Boot，现在在学 .NET——目标是做一个支付处理 API。</span></p>
+      </div>
+      <div class="card">
+        <div class="top"><h3><span lang="en">AI-assisted dev</span><span lang="zh">AI 辅助开发</span></h3><span class="tag"><span lang="en">Daily</span><span lang="zh">日常在用</span></span></div>
+        <p><span lang="en">Claude API, Claude Code, MCP. I use AI to move faster, and I still check what it says against the source.</span>
+           <span lang="zh">Claude API、Claude Code、MCP。我用 AI 提速，但依然会把它说的话拿去对照原始来源。</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="principles">
+    <h2><span class="no">06</span><span lang="en">How I work</span><span lang="zh">我做事的方式</span></h2>
+    <ol class="principles">
+      <li><b><span lang="en">Unchecked is not the same as safe.</span><span lang="zh">没查过，不等于没问题。</span></b>
+        <span lang="en">When a check fails, say so. A false green light is worse than an honest "I don't know".</span>
+        <span lang="zh">检查失败就如实说。一个假的绿灯，比一句诚实的“我不知道”更糟。</span></li>
+      <li><b><span lang="en">Hand over the whole picture.</span><span lang="zh">交接时把全貌交出去。</span></b>
+        <span lang="en">When I escalate, I include the root cause and the evidence, so nobody has to come back and ask.</span>
+        <span lang="zh">升级问题时，我会附上根因和证据，让对方不用再回来问一遍。</span></li>
+      <li><b><span lang="en">Only claim what I can defend.</span><span lang="zh">只写我能当面讲清楚的。</span></b>
+        <span lang="en">Every skill on this page traces back to something I built or ran. Where my depth is shallow, I say so.</span>
+        <span lang="zh">这一页上的每项技能，都能追溯到我真正做过或跑过的东西。哪里还浅，我会直说。</span></li>
+      <li><b><span lang="en">Solve my own problem first.</span><span lang="zh">先解决自己的问题。</span></b>
+        <span lang="en">If something annoys me every day, it probably annoys someone else too. That's usually where a good small tool starts.</span>
+        <span lang="zh">如果一件事每天都烦到我，它多半也在烦别人。好用的小工具通常就从这里开始。</span></li>
+    </ol>
+  </section>
+
+  <!-- 07 -->
+  <section id="notes">
+    <h2><span class="no">07</span><span lang="en">Notes</span><span lang="zh">笔记</span></h2>
+    <p class="muted"><span lang="en">Things I'm writing for people on a similar path.</span>
+       <span lang="zh">写给走在类似路上的人。</span></p>
+    <ul class="plain">
+      <li><span><span lang="en">From retail to service desk to developer: changing careers in New Zealand</span><span lang="zh">从零售到服务台再到开发：在新西兰转行的真实路线</span></span><span class="tag"><span lang="en">Drafting</span><span lang="zh">写作中</span></span></li>
+      <li><span><span lang="en">Checking a Christchurch house with nothing but open government data</span><span lang="zh">只用政府开放数据，查清一套基督城的房子</span></span><span class="tag"><span lang="en">Drafting</span><span lang="zh">写作中</span></span></li>
+      <li><span><span lang="en">How I used AI in my job search — and what I didn't hand over to it</span><span lang="zh">我怎样用 AI 求职，以及哪些事我没交给它</span></span><span class="tag"><span lang="en">Drafting</span><span lang="zh">写作中</span></span></li>
+    </ul>
+  </section>
+
+  <!-- 08 -->
+  <section id="contact">
+    <h2><span class="no">08</span><span lang="en">Say hello</span><span lang="zh">联系我</span></h2>
+    <p><span lang="en">Hiring, a project idea, or a question about any of the above — I'd like to hear it.</span>
+       <span lang="zh">招聘、项目想法，或者对上面任何内容的疑问——都欢迎来信。</span></p>
+    <p>
+      <a href="https://github.com/qinshi599">GitHub</a>
+      <!-- TODO: LinkedIn URL -->
+    </p>
+    <p class="muted small"><span lang="en">Christchurch, New Zealand</span>
+       <span lang="zh">新西兰基督城</span></p>
+  </section>
+
+</main>
+
+<footer>© 2026 Nora Shi</footer>
+
+<script>
+  // ponytail: two-language toggle via [lang] spans; remembered per browser.
+  const btn = document.getElementById('lang');
+  function setLang(l) {
+    document.body.dataset.lang = l;
+    document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+    btn.textContent = l === 'zh' ? 'EN' : '中';
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  }
+  let saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  setLang(saved || (navigator.language.startsWith('zh') ? 'zh' : 'en'));
+  btn.onclick = () => setLang(document.body.dataset.lang === 'zh' ? 'en' : 'zh');
+</script>
+</body>
+</html>
