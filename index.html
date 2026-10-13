@@ -53,6 +53,12 @@
   .btn.ghost { border:1px solid var(--ink); padding:10px 22px; color:var(--ink); }
   .btn.ghost:hover { background:var(--ink); color:var(--bg); }
   .hero figure { margin:0; align-self:end; position:relative; }
+  /* soft backdrop so the portrait sits in the page instead of floating as a cut-out */
+  .hero figure::before { content:""; position:absolute; left:6%; right:6%; top:8%; bottom:0;
+                         border-radius: 50% 50% 0 0 / 38% 38% 0 0;
+                         background: radial-gradient(120% 90% at 50% 30%, #ecebe6 0%, #e6e4dd 55%, transparent 100%); }
+  @media (prefers-color-scheme: dark) { .hero figure::before { background: radial-gradient(120% 90% at 50% 30%, #1d1d1d, #181818 55%, transparent 100%); } }
+  .hero figure img { position:relative; }
   /* blink: skin-coloured lids drop over the eyes for ~150ms every few seconds */
   .lid { position:absolute; width:9.4%; height:3.6%; border-radius:50% 50% 46% 46%;
          background: linear-gradient(to bottom, rgb(236 197 166) 0 72%, rgb(214 170 140) 84%, rgb(72 46 34) 94%); filter: blur(.6px);
@@ -62,7 +68,11 @@
   @keyframes blink { 0%, 93%, 100% { transform: scaleY(0); } 95.5% { transform: scaleY(1); } }
   @media (prefers-reduced-motion: reduce) { .lid { display:none; } }
   .hero figure img { display:block; width:100%; height:auto;
-                     -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, #000 78%, transparent 100%); }
+                     /* fade the bottom and the cropped shoulder edges so nothing ends on a hard line */
+                     -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 98%), linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+                     -webkit-mask-composite: source-in;
+                     mask-image: linear-gradient(to bottom, #000 70%, transparent 98%), linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+                     mask-composite: intersect; }
   @media (max-width: 760px) { .hero { grid-template-columns: 1fr; padding: 28px 16px 0; } .hero figure { max-width:340px; margin:0 auto; order:-1; } .cta { padding-bottom:40px; } }
 
   /* one dark band for rhythm */
@@ -148,9 +158,9 @@
   <div class="bar">
     <a class="name display" href="#top"><img src="images/logo.svg" width="28" height="28" alt="">Nora Shi</a>
     <nav>
+      <a href="#path"><span lang="en">Path</span><span lang="zh">经历</span></a>
       <a href="#now"><span lang="en">Now</span><span lang="zh">此刻</span></a>
       <a href="#work"><span lang="en">Work</span><span lang="zh">作品</span></a>
-      <a href="#path"><span lang="en">Path</span><span lang="zh">经历</span></a>
       <a href="#learning"><span lang="en">Learning</span><span lang="zh">学习地图</span></a>
       <a href="#principles"><span lang="en">How I work</span><span lang="zh">做事方式</span></a>
       <a href="#contact"><span lang="en">Contact</span><span lang="zh">联系</span></a>
@@ -189,9 +199,40 @@
 
 <main>
 
+  <!-- 04 -->
+  <section id="path">
+    <h2><span class="no">01</span><span lang="en">The path</span><span lang="zh">经历</span></h2>
+    <ol class="timeline">
+      <li><div class="when">2026 —</div>
+        <h3><span lang="en">Software Engineer Intern · MediaJira</span><span lang="zh">软件工程实习生 · MediaJira</span></h3>
+        <span lang="en">Full-stack product work in a production codebase with Kafka, WebSockets and Celery.</span>
+        <span lang="zh">在生产代码库中做全栈功能开发，接触 Kafka、WebSockets、Celery。</span></li>
+      <li><div class="when">2025 —</div>
+        <h3><span lang="en">Service Desk Analyst · Stantec</span><span lang="zh">服务台分析师 · Stantec</span></h3>
+        <span lang="en">Identity, endpoints, VPN, DNS in a global enterprise. I find the root cause with Splunk and hand it on with the evidence, so the next team doesn't have to ask again.</span>
+        <span lang="zh">在全球化企业环境中处理身份、终端、VPN、DNS 问题。我用 Splunk 找到根因，连同证据一起交给下一级团队，让他们不必再回头追问。</span></li>
+      <li><div class="when">2024 – 2025</div>
+        <h3><span lang="en">Graduate Diploma in Software Development · Ara</span><span lang="zh">软件开发研究生文凭 · Ara 坎特伯雷理工学院</span></h3>
+        <span lang="en">Top Student 2024. Plus a cloud engineering internship at Tradeshift: Terraform drift, observability dashboards, GitHub Actions.</span>
+        <span lang="zh">2024 年度优秀学生。期间在 Tradeshift 做云工程实习：处理 Terraform 配置漂移、维护监控面板、GitHub Actions。</span></li>
+      <li><div class="when">2022 – 2025</div>
+        <h3><span lang="en">Retail · Swarovski, Freedom Furniture</span><span lang="zh">零售 · Swarovski、Freedom Furniture</span></h3>
+        <span lang="en">Where I learned to listen to what people actually need — still the most useful skill in support and product work.</span>
+        <span lang="zh">在这里学会倾听别人真正需要什么——这至今是我在技术支持和产品工作中最有用的能力。</span></li>
+      <li><div class="when">2017 – 2021</div>
+        <h3><span lang="en">Editor · travel &amp; digital media</span><span lang="zh">编辑 · 旅行与新媒体</span></h3>
+        <span lang="en">New media editor at Condé Nast Traveler (Beijing): about 100 articles, 20+ brand collaborations with partners such as Tourism Canada and Marriott, and 50k+ new followers. Before that, travel writing at ifeng.com, where four of my pieces reached the homepage; after it, content editor at an education company in Shanghai.</span>
+        <span lang="zh">在《悦游 Condé Nast Traveler》（北京）做新媒体编辑：写了近百篇文章，与加拿大旅游局、万豪等品牌合作 20 多篇，公众号涨粉 5 万以上。更早在凤凰网旅游频道写旅行稿，有 4 篇上了凤凰网首页推荐；之后在上海一家教育公司做内容编辑。</span></li>
+      <li><div class="when">2019</div>
+        <h3><span lang="en">Bachelor of Digital Information · Tianjin Foreign Studies University</span><span lang="zh">数字传媒学士 · 天津外国语大学</span></h3>
+        <span lang="en">Led the campus press corps and started its portrait-photography column.</span>
+        <span lang="zh">在校时担任学院记者团团长，创办了校园人像摄影专栏。</span></li>
+    </ol>
+  </section>
+
   <!-- 01 -->
   <section id="facets">
-    <h2><span class="no">01</span><span lang="en">Three sides of me</span><span lang="zh">三个切面</span></h2>
+    <h2><span class="no">02</span><span lang="en">Three sides of me</span><span lang="zh">三个切面</span></h2>
     <div class="facets">
       <div>
         <h3><span lang="en">Start from a real need</span><span lang="zh">从真实需求出发</span></h3>
@@ -213,7 +254,7 @@
 
   <!-- 02 -->
   <section id="now">
-    <h2><span class="no">02</span><span lang="en">Now</span><span lang="zh">此刻</span></h2>
+    <h2><span class="no">03</span><span lang="en">Now</span><span lang="zh">此刻</span></h2>
     <ul class="now plain">
       <li><span><b lang="en">Working</b><b lang="zh">工作</b>
         <span lang="en">Service Desk Analyst at Stantec (global, on-call incident response) · Software Engineer Intern at MediaJira</span>
@@ -230,7 +271,7 @@
 
   <!-- 03 -->
   <section id="work">
-    <h2><span class="no">03</span><span lang="en">Things I've built</span><span lang="zh">做过的事</span></h2>
+    <h2><span class="no">04</span><span lang="en">Things I've built</span><span lang="zh">做过的事</span></h2>
 
     <div class="card">
       <div class="top"><h3>SmartBuy NZ · CHCH House Monitor</h3><span class="tag live"><span lang="en">In progress</span><span lang="zh">进行中</span></span></div>
@@ -321,37 +362,6 @@
       <span lang="en">Earlier, from study: <a href="https://github.com/qinshi599/ChessMazeGame">Chess Maze Game</a> (C#, WinForms, MSTest) · Triathlon Workout App (React, Jest) · a Spring Boot banking API.</span>
       <span lang="zh">更早的课程作品：<a href="https://github.com/qinshi599/ChessMazeGame">国际象棋迷宫游戏</a>（C#、WinForms、MSTest）· 铁人三项训练应用（React、Jest）· 一个 Spring Boot 银行账户 API。</span>
     </p>
-  </section>
-
-  <!-- 04 -->
-  <section id="path">
-    <h2><span class="no">04</span><span lang="en">The path</span><span lang="zh">经历</span></h2>
-    <ol class="timeline">
-      <li><div class="when">2026 —</div>
-        <h3><span lang="en">Software Engineer Intern · MediaJira</span><span lang="zh">软件工程实习生 · MediaJira</span></h3>
-        <span lang="en">Full-stack product work in a production codebase with Kafka, WebSockets and Celery.</span>
-        <span lang="zh">在生产代码库中做全栈功能开发，接触 Kafka、WebSockets、Celery。</span></li>
-      <li><div class="when">2025 —</div>
-        <h3><span lang="en">Service Desk Analyst · Stantec</span><span lang="zh">服务台分析师 · Stantec</span></h3>
-        <span lang="en">Identity, endpoints, VPN, DNS in a global enterprise. I find the root cause with Splunk and hand it on with the evidence, so the next team doesn't have to ask again.</span>
-        <span lang="zh">在全球化企业环境中处理身份、终端、VPN、DNS 问题。我用 Splunk 找到根因，连同证据一起交给下一级团队，让他们不必再回头追问。</span></li>
-      <li><div class="when">2024 – 2025</div>
-        <h3><span lang="en">Graduate Diploma in Software Development · Ara</span><span lang="zh">软件开发研究生文凭 · Ara 坎特伯雷理工学院</span></h3>
-        <span lang="en">Top Student 2024. Plus a cloud engineering internship at Tradeshift: Terraform drift, observability dashboards, GitHub Actions.</span>
-        <span lang="zh">2024 年度优秀学生。期间在 Tradeshift 做云工程实习：处理 Terraform 配置漂移、维护监控面板、GitHub Actions。</span></li>
-      <li><div class="when">2022 – 2025</div>
-        <h3><span lang="en">Retail · Swarovski, Freedom Furniture</span><span lang="zh">零售 · Swarovski、Freedom Furniture</span></h3>
-        <span lang="en">Where I learned to listen to what people actually need — still the most useful skill in support and product work.</span>
-        <span lang="zh">在这里学会倾听别人真正需要什么——这至今是我在技术支持和产品工作中最有用的能力。</span></li>
-      <li><div class="when">2017 – 2021</div>
-        <h3><span lang="en">Editor · travel &amp; digital media</span><span lang="zh">编辑 · 旅行与新媒体</span></h3>
-        <span lang="en">New media editor at Condé Nast Traveler (Beijing): about 100 articles, 20+ brand collaborations with partners such as Tourism Canada and Marriott, and 50k+ new followers. Before that, travel writing at ifeng.com, where four of my pieces reached the homepage; after it, content editor at an education company in Shanghai.</span>
-        <span lang="zh">在《悦游 Condé Nast Traveler》（北京）做新媒体编辑：写了近百篇文章，与加拿大旅游局、万豪等品牌合作 20 多篇，公众号涨粉 5 万以上。更早在凤凰网旅游频道写旅行稿，有 4 篇上了凤凰网首页推荐；之后在上海一家教育公司做内容编辑。</span></li>
-      <li><div class="when">2019</div>
-        <h3><span lang="en">Bachelor of Digital Information · Tianjin Foreign Studies University</span><span lang="zh">数字传媒学士 · 天津外国语大学</span></h3>
-        <span lang="en">Led the campus press corps and started its portrait-photography column.</span>
-        <span lang="zh">在校时担任学院记者团团长，创办了校园人像摄影专栏。</span></li>
-    </ol>
   </section>
 
   <!-- 05 -->
