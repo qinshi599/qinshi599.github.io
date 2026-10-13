@@ -59,14 +59,6 @@
                          background: radial-gradient(120% 90% at 50% 30%, #ecebe6 0%, #e6e4dd 55%, transparent 100%); }
   @media (prefers-color-scheme: dark) { .hero figure::before { background: radial-gradient(120% 90% at 50% 30%, #1d1d1d, #181818 55%, transparent 100%); } }
   .hero figure img { position:relative; }
-  /* blink: skin-coloured lids drop over the eyes for ~150ms every few seconds */
-  .lid { position:absolute; width:9.4%; height:3.6%; border-radius:50% 50% 46% 46%;
-         background: linear-gradient(to bottom, rgb(236 197 166) 0 72%, rgb(214 170 140) 84%, rgb(72 46 34) 94%); filter: blur(.6px);
-         transform-origin: 50% 0; transform: scaleY(0); animation: blink 5.5s infinite; pointer-events:none; }
-  .lid.l { left:36.6%; top:22.1%; rotate:4deg; }
-  .lid.r { left:52.8%; top:25.0%; rotate:6deg; }
-  @keyframes blink { 0%, 93%, 100% { transform: scaleY(0); } 95.5% { transform: scaleY(1); } }
-  @media (prefers-reduced-motion: reduce) { .lid { display:none; } }
   .hero figure img { display:block; width:100%; height:auto;
                      /* fade the bottom and the cropped shoulder edges so nothing ends on a hard line */
                      -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 98%), linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
@@ -147,6 +139,8 @@
 
   footer { max-width:1040px; margin:0 auto; padding: 28px 24px 48px; color:var(--faint); font-size:.8rem;
            border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .bar .wordmark { display:block; margin-right:auto; text-decoration:none; color:var(--ink); }
+  .bar .wordmark b { font-size:.82rem; }
   .wordmark { text-align:center; color:var(--muted); line-height:1.1; }
   .wordmark b { display:block; font-weight:400; letter-spacing:.5em; margin-right:-.5em; font-size:.78rem; }
   .wordmark span { display:block; font-size:.62rem; letter-spacing:.6em; margin-right:-.6em; border-top:1px solid var(--line); padding-top:4px; margin-top:4px; }
@@ -156,7 +150,7 @@
 
 <header>
   <div class="bar">
-    <a class="name display" href="#top"><img src="images/logo.svg" width="28" height="28" alt="">Nora Shi</a>
+    <a class="name wordmark" href="#top" aria-label="Qin Labs — Nora Shi"><b>QIN LABS</b><span>DEV</span></a>
     <nav>
       <a href="#path"><span lang="en">Path</span><span lang="zh">经历</span></a>
       <a href="#now"><span lang="en">Now</span><span lang="zh">此刻</span></a>
@@ -174,7 +168,7 @@
   <div>
     <p class="kicker"><span lang="en">Nora Shi · Software &amp; Cloud Engineer · Christchurch, NZ</span><span lang="zh">Nora Shi · 软件与云工程师 · 新西兰基督城</span></p>
     <h1 class="display">
-      <span lang="en">I build small tools for real problems,<br>and trace things to the root<span class="dot">.</span></span>
+      <span lang="en">I build small tools<br>for real problems<span class="dot">.</span></span>
       <span lang="zh">为真实的问题做小工具，<br>把每个问题追到根上<span class="dot">。</span></span>
     </h1>
     <p>
@@ -193,7 +187,6 @@
   </div>
   <figure>
     <img src="images/nora-illustration.webp" width="820" height="1119" alt="Illustrated portrait of Nora Shi">
-    <span class="lid l" aria-hidden="true"></span><span class="lid r" aria-hidden="true"></span>
   </figure>
 </div>
 
