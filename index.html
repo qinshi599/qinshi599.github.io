@@ -60,7 +60,15 @@
   @media (prefers-color-scheme: dark) { .hero figure::before { background: radial-gradient(120% 90% at 50% 30%, #1d1d1d, #181818 55%, transparent 100%); } }
   .hero figure img { position:relative; }
   /* blink frame: identical picture with only the eyes closed, stacked on top */
-  .hero figure img.eyes-closed { position:absolute; inset:0; clip-path: polygon(0 0, 100% 0, 100% 29.6%, 0 16.1%); will-change:clip-path; }
+  /* idle: a slow, barely-there breath so the figure is never frozen */
+  .bust { position:relative; display:block; transform-origin:50% 100%; animation: breathe 5.6s ease-in-out infinite alternate; }
+  @keyframes breathe { from { transform: translateY(0) rotate(0deg) scale(1); } to { transform: translateY(-2px) rotate(.35deg) scale(1.004); } }
+  /* blink: the eyes-closed frame shows through a soft, tilted lid edge (--lid) that moves down over the eyes */
+  @property --lid { syntax: '<percentage>'; inherits: false; initial-value: 25%; }
+  .hero figure img.eyes-closed { position:absolute; inset:0; --lid: 25%;
+    -webkit-mask-image: linear-gradient(190deg, #000 var(--lid), transparent calc(var(--lid) + 1.6%));
+            mask-image: linear-gradient(190deg, #000 var(--lid), transparent calc(var(--lid) + 1.6%)); }
+  @media (prefers-reduced-motion: reduce) { .bust { animation:none; } }
   .hero figure img { display:block; width:100%; height:auto; }
   @media (max-width: 760px) { .hero { grid-template-columns: 1fr; padding: 28px 16px 0; } .hero figure { max-width:340px; margin:0 auto; order:-1; } .cta { padding-bottom:40px; } }
 
@@ -183,8 +191,10 @@
     </div>
   </div>
   <figure>
-    <img src="images/nora-cartoon-open.webp" width="820" height="1118" alt="Illustrated portrait of Nora Shi">
-    <img class="eyes-closed" src="images/nora-cartoon-closed.webp" width="820" height="1118" alt="" aria-hidden="true">
+    <span class="bust">
+      <img src="images/nora-cartoon-open.webp" width="820" height="1118" alt="Illustrated portrait of Nora Shi">
+      <img class="eyes-closed" src="images/nora-cartoon-closed.webp" width="820" height="1118" alt="" aria-hidden="true">
+    </span>
   </figure>
 </div>
 
@@ -448,16 +458,17 @@
   (() => {
     const lids = document.querySelector('.eyes-closed');
     if (!lids || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    // The closed frame is revealed by an edge that sweeps down across both eyes (tilted to
-    // match the head), so the upper lid slides down instead of two pictures cross-fading.
-    const open = 'polygon(0 0, 100% 0, 100% 29.6%, 0 16.1%)';
-    const shut = 'polygon(0 0, 100% 0, 100% 35.2%, 0 21.7%)';
+    // A soft lid edge sweeps down across both eyes (tilted with the head): fast close,
+    // a beat shut, slower open — the rhythm of a real blink.
     const blink = () => lids.animate(
-      [{ clipPath: open }, { clipPath: shut, offset: 0.3, easing: 'ease-out' }, { clipPath: shut, offset: 0.45, easing: 'ease-in-out' }, { clipPath: open }],
-      { duration: 260, easing: 'ease-in' });
+      [{ '--lid': '25%', easing: 'cubic-bezier(.5,0,.9,.6)' },
+       { '--lid': '31.6%', offset: 0.28 },
+       { '--lid': '31.6%', offset: 0.42, easing: 'cubic-bezier(.2,.5,.4,1)' },
+       { '--lid': '25%' }],
+      { duration: 300 });
     const loop = () => {
       if (!document.hidden) { blink(); if (Math.random() < 0.2) setTimeout(blink, 320); }
-      setTimeout(loop, 2800 + Math.random() * 4200);
+      setTimeout(loop, 2500 + Math.random() * 4000);
     };
     lids.decode?.().catch(() => {}).finally(() => setTimeout(loop, 1800));
   })();
