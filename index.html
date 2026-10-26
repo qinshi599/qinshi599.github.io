@@ -61,12 +61,7 @@
   .hero figure img { position:relative; }
   /* blink frame: identical picture with only the eyes closed, stacked on top */
   .hero figure img.eyes-closed { position:absolute; inset:0; clip-path: polygon(0 0, 100% 0, 100% 29.6%, 0 16.1%); will-change:clip-path; }
-  .hero figure img { display:block; width:100%; height:auto;
-                     /* fade the bottom and the cropped shoulder edges so nothing ends on a hard line */
-                     -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 98%), linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
-                     -webkit-mask-composite: source-in;
-                     mask-image: linear-gradient(to bottom, #000 70%, transparent 98%), linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
-                     mask-composite: intersect; }
+  .hero figure img { display:block; width:100%; height:auto; }
   @media (max-width: 760px) { .hero { grid-template-columns: 1fr; padding: 28px 16px 0; } .hero figure { max-width:340px; margin:0 auto; order:-1; } .cta { padding-bottom:40px; } }
 
   /* one dark band for rhythm */
